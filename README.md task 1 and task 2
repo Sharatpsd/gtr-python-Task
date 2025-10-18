@@ -1,0 +1,180 @@
+# Python Internship Assignment – Sharat Acharja Mugdho
+
+This repository contains my submission for the Python Internship at Genuine Technology & Research Ltd. It includes two tasks:  
+
+1. **Algorithmic Trading Adventure**  
+2. **Samsung Phone Advisor**
+
+---
+
+## **Task 1: Algorithmic Trading Adventure**
+
+### Overview
+This Python project simulates stock trading using historical data, moving averages, and a basic buy/sell strategy.
+
+- Uses `yfinance` to fetch historical stock prices.  
+- 50-day and 200-day moving averages are calculated.  
+- Buy when 50-day MA crosses above 200-day (Golden Cross).  
+- Sell when 50-day MA crosses below 200-day.  
+- Calculates final profit/loss using an initial budget of $5000.
+
+### Requirements
+- Python 3.10+  
+- Libraries: `yfinance`, `pandas`, `numpy`  
+
+Install packages:
+
+```bash
+pip install yfinance pandas numpy
+```
+
+### How to Run
+1. Open `trading.py`.  
+2. Update stock symbol and date range if needed:
+
+```python
+trader = TradingStrategy("AAPL", "2018-01-01", "2023-12-31")
+```
+
+3. Run the program:
+
+```bash
+python trading.py
+```
+
+4. Output example:
+
+```
+BUY 100 shares at $49.82 on 2019-05-06
+SELL 100 shares at $142.92 on 2022-06-03
+Final Cash: $16279.56
+Net Profit/Loss: $11279.56
+```
+
+---
+
+## **Task 2: Samsung Phone Advisor**
+
+### Overview
+This project is a smart assistant API to get Samsung phone specs and comparisons using natural-language queries.
+
+- Users can ask normal questions:
+  - "What are the specs of Galaxy S23 Ultra?"  
+  - "Compare Galaxy S23 Ultra and Galaxy S22 Ultra"  
+- Uses PostgreSQL to store phone data.  
+- Built with FastAPI and psycopg2.
+
+### Requirements
+- Python 3.10+  
+- PostgreSQL  
+- Libraries: `fastapi`, `uvicorn`, `psycopg2`, `pydantic`  
+
+Install packages:
+
+```bash
+pip install fastapi uvicorn psycopg2 pydantic
+```
+
+### Database Setup
+1. Create database:
+
+```sql
+CREATE DATABASE samsung_phones;
+```
+
+2. Create table and insert sample data:
+
+```sql
+CREATE TABLE IF NOT EXISTS samsung_phones (
+    model VARCHAR PRIMARY KEY,
+    release_date DATE,
+    display VARCHAR,
+    battery VARCHAR,
+    camera VARCHAR,
+    ram VARCHAR,
+    storage VARCHAR,
+    price NUMERIC
+);
+
+INSERT INTO samsung_phones (model, release_date, display, battery, camera, ram, storage, price) VALUES
+('Galaxy S23 Ultra', '2023-02-01', '6.8" AMOLED', '5000mAh', '200MP', '12GB', '256GB', 1200),
+('Galaxy S22 Ultra', '2022-02-01', '6.8" AMOLED', '5000mAh', '108MP', '12GB', '256GB', 1100);
+```
+
+3. Update `main.py` with PostgreSQL credentials:
+
+```python
+conn = psycopg2.connect(
+    dbname="samsung_phones",
+    user="postgres",
+    password="yourpassword",
+    host="localhost",
+    port="5432"
+)
+```
+
+### How to Run
+```bash
+uvicorn main:app --reload
+```
+
+- API URL: [http://127.0.0.1:8000](http://127.0.0.1:8000)  
+- Swagger UI: [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
+
+### Example API Queries
+- Single phone:
+
+```json
+{
+  "question": "What are the specs of Galaxy S23 Ultra?"
+}
+```
+
+- Compare two phones:
+
+```json
+{
+  "question": "Compare Galaxy S23 Ultra and Galaxy S22 Ultra"
+}
+```
+
+- Response example:
+
+```json
+{
+  "answer": "Galaxy S23 Ultra has better camera and battery than Galaxy S22 Ultra. Display is similar. Overall, Galaxy S23 Ultra recommended for photography and long usage."
+}
+```
+
+---
+
+## **Folder Structure**
+
+```
+Python-Internship-Assignment/
+│
+├─ Task1-AlgorithmicTrading/
+│   ├─ trading.py
+│   └─ requirements.txt
+│
+├─ Task2-SamsungPhoneAdvisor/
+│   ├─ main.py
+│   ├─ requirements.txt
+│   └─ database/
+│       └─ samsung_phones.sql
+│
+└─ README.md
+```
+
+---
+
+## **Video Demo**
+- Task 1: Run `trading.py` showing buy/sell and final profit.  
+- Task 2: Run FastAPI, Swagger UI or curl commands showing question-response.  
+- Upload video to Google Drive and include the link when submitting.
+
+---
+
+## **Author**
+Sharat Acharja Mugdho  
+Python Internship – Genuine Technology & Research Ltd.
