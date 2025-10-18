@@ -1,0 +1,87 @@
+# Algorithmic Trading Adventure
+
+Hi! This is my Python project where I created a simple algorithmic trading tool. The program helps to simulate trading a stock using historical data, moving averages, and a basic buy/sell strategy.
+
+---
+
+## **Project Overview**
+
+- I used Python and `yfinance` to get historical stock data.
+- The strategy uses 50-day and 200-day moving averages.
+- When the 50-day moving average crosses above the 200-day, the system buys (Golden Cross).
+- When the 50-day moving average crosses below the 200-day, it sells.
+- The program calculates final profit/loss based on initial budget.
+
+---
+
+## **Requirements**
+
+- Python 3.10+
+- Libraries:
+  - yfinance
+  - pandas
+  - numpy
+
+- You can install them using:
+
+```bash
+pip install yfinance pandas numpy
+```
+
+---
+
+## **How to Run**
+
+1. Open `trading.py`.
+2. Update the stock symbol and date range if needed:
+
+```python
+trader = TradingStrategy("AAPL", "2018-01-01", "2023-12-31")
+```
+
+3. Run the program:
+
+```bash
+python trading.py
+```
+
+4. The program will fetch historical data, run the strategy, and print results:
+
+```
+BUY 100 shares at $49.82 on 2019-05-06
+SELL 100 shares at $142.92 on 2022-06-03
+...
+Final Cash: $16279.56
+Net Profit/Loss: $11279.56
+```
+
+---
+
+## **Folder Structure**
+
+```
+Task1-AlgorithmicTrading/
+│
+├─ trading.py
+├─ README.md
+└─ requirements.txt
+```
+
+- `trading.py`: Main Python script for strategy
+- `requirements.txt`: List of Python packages
+- `README.md`: Project details
+
+---
+
+## **Notes**
+
+- Initial budget: $5000
+- Only one stock can be bought at a time.
+- Positions are force-sold on the last day if still open.
+
+---
+
+### **Author**
+
+Sharat Acharja Mugdho
+Python Internship – Task 1

@@ -1,0 +1,134 @@
+# Samsung Phone Advisor
+
+Hi! This is my small project where I made a smart assistant to get Samsung phone specs and compare them. I built it using Python, FastAPI, and PostgreSQL.
+
+---
+
+## **What it does**
+
+- Shows full specifications of Samsung phones.
+- Can compare two phones (camera, battery, display, overall).
+- Users can ask normal questions like:
+  - "What are the specs of Galaxy S23 Ultra?"
+  - "Compare Galaxy S23 Ultra and Galaxy S22 Ultra"
+
+---
+
+## **Setup**
+
+### 1. Install Python Packages
+I used `requirements.txt` so it’s easy:
+
+```bash
+pip install -r requirements.txt
+```
+
+Packages used:
+- fastapi
+- uvicorn
+- psycopg2
+- pydantic
+
+---
+
+### 2. Setup PostgreSQL Database
+
+- Create database:
+
+```sql
+CREATE DATABASE samsung_phones;
+```
+
+- Create table and add sample phones:
+
+```sql
+CREATE TABLE IF NOT EXISTS samsung_phones (
+    model VARCHAR PRIMARY KEY,
+    release_date DATE,
+    display VARCHAR,
+    battery VARCHAR,
+    camera VARCHAR,
+    ram VARCHAR,
+    storage VARCHAR,
+    price NUMERIC
+);
+
+INSERT INTO samsung_phones (model, release_date, display, battery, camera, ram, storage, price) VALUES
+('Galaxy S23 Ultra', '2023-02-01', '6.8" AMOLED', '5000mAh', '200MP', '12GB', '256GB', 1200),
+('Galaxy S22 Ultra', '2022-02-01', '6.8" AMOLED', '5000mAh', '108MP', '12GB', '256GB', 1100);
+```
+
+- Update `main.py` with your PostgreSQL username & password:
+
+```python
+conn = psycopg2.connect(
+    dbname="samsung_phones",
+    user="postgres",
+    password="yourpassword",
+    host="localhost",
+    port="5432"
+)
+```
+
+---
+
+### 3. Run the API
+
+```bash
+uvicorn main:app --reload
+```
+
+- API URL: [http://127.0.0.1:8000](http://127.0.0.1:8000)
+- Swagger UI: [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
+
+---
+
+## **How to ask questions**
+
+- Single phone:
+
+```json
+{
+  "question": "What are the specs of Galaxy S23 Ultra?"
+}
+```
+
+- Compare two phones:
+
+```json
+{
+  "question": "Compare Galaxy S23 Ultra and Galaxy S22 Ultra"
+}
+```
+
+- If phone not in DB or question unknown:
+
+```json
+{"answer": "Sorry, I cannot answer that question."}
+```
+
+---
+
+## **Folder structure**
+
+```
+Task2-SamsungPhoneAdvisor/
+│
+├─ main.py
+├─ requirements.txt
+├─ README.md
+└─ database/
+   └─ samsung_phones.sql
+```
+
+---
+
+### **Notes**
+- Make sure the phone names you ask exist in database.
+- You can test API with Swagger UI or curl commands.
+
+---
+
+### **Author**
+Sharat Acharja Mugdho
+Python Internship – Task 2
